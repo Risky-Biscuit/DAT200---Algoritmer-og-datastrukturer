@@ -1,54 +1,15 @@
-# Assignment 2 - Linked-List
-
 """
-Criteria:
-
-It can be done in a group of three students (recommended)
-You need to present it during the lab sessions and get it approved by the Student assistants.
-You need to have all questions ready while attending the lab
-The algorithms should work for any possible inputs and conditions
-At least 3 questions should work in order to get it approved.
-
-
-////////////////////////////////////////////////
-
 Q1. Write a program that finds and prints the minimum and maximum values in a singly linked list.
 
 >> So you need to create a singly linked list and populate it with some data.
 >> Write a function to find the min and max values.
-for example:
-
-ov2.JPG
-
-/////////////////////////////////////////////////////////
-
-Q2. Write a program that removes the duplicated elements in a circular doubly linked list.
-
-for example: you have populated the linked list with these elements and want to remove the duplicated ones...
-
-ov1.JPG
-
-//////////////////////////////////////////////////////////
-
-Q3. Write a program that reads the K value as an input and swaps the first K nodes with the last K nodes in a doubly linked list.
-
-for example: 1 and 8 have been swapped, 2 and 7 have been swapped.
-
-ov3.JPG
-
-////////////////////////////////////////
-
-Q4: Build a to-do list application using a linked list to manage tasks.
-
-4.1: Include features like adding, deleting, and displaying tasks.
-4.2: Expanding the to-do list application to include task priorities, due dates, and the ability to mark tasks as completed can make it more versatile and useful.
-Hint: The Task class includes description, priority, due_date, and completed attributes.
-/////////////////////////////////////////
 """
 
-from __future__ import annotations
-from dataclasses import dataclass
-from typing import Optional
+from __future__ import (
+    annotations,
+)  # Let's me use Node as a type hint before it is fully defined
+from dataclasses import dataclass  # No need for __init__ and such
+from typing import Optional  # Basically "Node or None", in this case
 
 
 @dataclass
@@ -70,3 +31,29 @@ def from_list(values: list[int]) -> Optional[Node]:
             tail.next = node
             tail = node
     return head
+
+
+def min_max(head: Node) -> tuple[int, int]:
+    if head is None:
+        raise ValueError("List is empty.")
+
+    min_val = head.val
+    max_val = head.val
+
+    p = head.next
+    while p:
+        if p.val < min_val:
+            min_val = p.val
+        if p.val > max_val:
+            max_val = p.val
+        p = p.next
+    return (min_val, max_val)
+
+
+head = from_list([6, 1, 2, 3, 4, 5, 7, 9, 120, -3])
+
+# print(min_max(head))
+
+mn, mx = min_max(head)
+print("min", mn)
+print("max", mx)
