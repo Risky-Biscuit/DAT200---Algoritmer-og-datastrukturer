@@ -37,11 +37,17 @@ def min_max(head: Node) -> tuple[int, int]:
     if head is None:
         raise ValueError("List is empty.")
 
+    # check type of first value
+    if not isinstance(head.val, int):
+        raise TypeError("List must contain only integers")
+
     min_val = head.val
     max_val = head.val
 
     p = head.next
     while p:
+        if not isinstance(p.val, int):
+            raise TypeError("List must contain only integers")
         if p.val < min_val:
             min_val = p.val
         if p.val > max_val:
@@ -51,7 +57,7 @@ def min_max(head: Node) -> tuple[int, int]:
 
 
 if __name__ == "__main__":
-    head = from_list([6, 1, 2, 3, 4, 5, 7, 9, 120, -3])
+    head = from_list([6, 1, 2, 3, 4, 5, 7, 9, 120, -3, 100, 77, 7])
 
     # print(min_max(head))
 
