@@ -50,10 +50,11 @@ def min_max(head: Node) -> tuple[int, int]:
     return (min_val, max_val)
 
 
-head = from_list([6, 1, 2, 3, 4, 5, 7, 9, 120, -3])
+if __name__ == "__main__":
+    head = from_list([6, 1, 2, 3, 4, 5, 7, 9, 120, -3])
 
-# print(min_max(head))
+    # print(min_max(head))
 
-mn, mx = min_max(head)
-print("min", mn)
-print("max", mx)
+    mn, mx = min_max(head)
+    print("min", mn)
+    print("max", mx)
