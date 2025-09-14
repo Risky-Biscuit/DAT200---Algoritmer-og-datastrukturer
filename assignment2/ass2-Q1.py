@@ -19,7 +19,7 @@ class Node:
 
 
 def from_list(values: list[int]) -> Optional[Node]:
-    # Return head of singly linked list built from values in order
+    # Return head of singly linked list
     head = None
     tail = None
     for x in values:
