@@ -45,10 +45,10 @@ def remove_duplicates(head: Optional[Node]) -> Optional[Node]:
 
     while p is not head:
         if p.val in seen:
-            nxt = p.next  # 1) bookmark next
+            nxt = p.next  # 1) place a checkpoint/bookmark at the next value
             p.prev.next = p.next  # 2) unlink p forward
             p.next.prev = p.prev  # 3) unlink p backward
-            p = nxt  # 4) advance using bookmark
+            p = nxt  # 4) "restart at checkpoint"
         else:
             seen.add(p.val)
             p = p.next  # advance normally
