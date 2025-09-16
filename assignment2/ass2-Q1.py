@@ -22,6 +22,7 @@ def from_list(values: list[int]) -> Optional[Node]:
     # Return head of singly linked list
     head = None
     tail = None
+
     for x in values:
         node = Node(x)
         if head is None:  # first element
@@ -30,6 +31,7 @@ def from_list(values: list[int]) -> Optional[Node]:
         else:  # attach new node at the end
             tail.next = node
             tail = node
+
     return head
 
 
