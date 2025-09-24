@@ -1,0 +1,60 @@
+"""
+DAT200 - Assignment 3 (Q2): N-Queens
+Return all distinct solutions as lists of strings with 'Q' and '.'.
+"""
+
+from typing import List
+
+
+def solve_n_queens(n: int) -> List[List[str]]:
+    """
+    Backtracking:
+      - place one queen per row
+      - track used columns and diagonals:
+          diag1: r - c (↘), diag2: r + c (↙)
+    """
+    if n <= 0:
+        return []
+    if n in (2, 3):
+        # Known: no solutions exist for 2 or 3
+        return []
+
+    cols = set()
+    diag1 = set()  # r - c
+    diag2 = set()  # r + c
+    board = [["."] * n for _ in range(n)]
+    solutions: List[List[str]] = []
+
+    def can_place(r: int, c: int) -> bool:
+        return (c not in cols) and ((r - c) not in diag1) and ((r + c) not in diag2)
+
+    def backtrack(r: int) -> None:
+        if r == n:
+            solutions.append(["".join(row) for row in board])
+            return
+        for c in range(n):
+            if not can_place(r, c):
+                continue
+            # place
+            board[r][c] = "Q"
+            cols.add(c)
+            diag1.add(r - c)
+            diag2.add(r + c)
+            # recurse
+            backtrack(r + 1)
+            # backtrack
+            board[r][c] = "."
+            cols.remove(c)
+            diag1.remove(r - c)
+            diag2.remove(r + c)
+
+    backtrack(0)
+    return solutions
+
+
+if __name__ == "__main__":
+    sols = solve_n_queens(4)
+    print(f"n=4 -> {len(sols)} solutions")
+    for s in sols:
+        print(*s, sep="\n")
+        print("-")
