@@ -53,7 +53,12 @@ def solve_n_queens(n: int) -> List[List[str]]:
 
 
 if __name__ == "__main__":
-    n = int(input("How many squares? "))
+    try:
+        n = int(input("How many squares? "))
+    except ValueError:
+        print("Pleace enter an integer.")
+        exit(1)
+
     sols = solve_n_queens(n)
     print(f"n={n} -> {len(sols)} solutions")
     for s in sols:
