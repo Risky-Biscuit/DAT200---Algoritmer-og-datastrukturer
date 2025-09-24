@@ -15,8 +15,7 @@ def solve_n_queens(n: int) -> List[List[str]]:
     """
     if n <= 0:
         return []
-    if n in (2, 3):
-        # Known: no solutions exist for 2 or 3
+    if n in (2, 3):  # Known: no solutions exist for 2 or 3
         return []
 
     cols = set()
@@ -25,6 +24,7 @@ def solve_n_queens(n: int) -> List[List[str]]:
     board = [["."] * n for _ in range(n)]
     solutions: List[List[str]] = []
 
+    # Safety check: a queen at (r, c) must not share a column or giagonal with any existing queen
     def can_place(r: int, c: int) -> bool:
         return (c not in cols) and ((r - c) not in diag1) and ((r + c) not in diag2)
 
@@ -35,14 +35,14 @@ def solve_n_queens(n: int) -> List[List[str]]:
         for c in range(n):
             if not can_place(r, c):
                 continue
-            # place
+            # place a queen at (r, c) and mark its column + diagonals as used
             board[r][c] = "Q"
             cols.add(c)
             diag1.add(r - c)
             diag2.add(r + c)
-            # recurse
+            # recurse to try placing the next row
             backtrack(r + 1)
-            # backtrack
+            # backtrack: undo the placement to try the next column in this row **********
             board[r][c] = "."
             cols.remove(c)
             diag1.remove(r - c)
@@ -53,8 +53,9 @@ def solve_n_queens(n: int) -> List[List[str]]:
 
 
 if __name__ == "__main__":
-    sols = solve_n_queens(4)
-    print(f"n=4 -> {len(sols)} solutions")
+    n = int(input("How many squares? "))
+    sols = solve_n_queens(n)
+    print(f"n={n} -> {len(sols)} solutions")
     for s in sols:
         print(*s, sep="\n")
         print("-")
