@@ -42,7 +42,7 @@ def solve_n_queens(n: int) -> List[List[str]]:
             diag2.add(r + c)
             # recurse to try placing the next row
             backtrack(r + 1)
-            # backtrack: undo the placement to try the next column in this row **********
+            # backtrack: undo the placement to try the next column in this row
             board[r][c] = "."
             cols.remove(c)
             diag1.remove(r - c)
